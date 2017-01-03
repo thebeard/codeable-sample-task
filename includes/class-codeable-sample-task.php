@@ -150,7 +150,10 @@ class Codeable_Sample_Task {
 	 * @return  boolean
 	 */
 	private function has_permissions() {
-		if ( defined( 'CAN_GUEST_UPDATE' ) && CAN_GUEST_UPDATE ) return true;
+		if ( defined( 'CAN_GUEST_UPDATE' )
+			&& CAN_GUEST_UPDATE
+			&& wp_verify_nonce( $_REQUEST[ 'update_post_title' ], 'secret_post_title_value' )
+		) return true;
 		else if ( is_super_admin() ) return true;
 		else return false;
 	}
@@ -267,8 +270,8 @@ class Codeable_Sample_Task {
 			</label>
 			<br />
 			<input type="submit" value="Update Title" />
-		</form>
 EOD;
+		$form .= wp_nonce_field( 'secret_post_title_value', 'update_post_title' ) . '</form>';
 		return $form;
 	}
 

@@ -31,6 +31,7 @@
 			$.post( uris.ajaxurl, {
 				action: "fetch_title",
 				id: $( '#cdbl-test [name="id"]' ).val(),
+				update_post_title: $( '#update_post_title' ).val(),
 			}).done(function( data ) {
 				$( '#cdbl-test [name="title"]' ).val( data );
 				$( '#cdbl-test [name="title"]' ).removeAttr( 'disabled' );
